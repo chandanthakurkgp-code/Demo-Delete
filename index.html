@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CKT DIGITAL - Services Directory</title>
+    <style>
+        /* पुराने सभी स्टाइल्स यहाँ रहेंगे */
+        * { box-sizing: border-box; transition: background 0.3s, color 0.3s; }
+        :root { 
+            --light-green: #90EE90; --green-shadow: #76c776; --dark-bg: #1a1a1a; 
+            --ad-black: #000000; --white-bg: #ffffff; --text-color: #000000; --card-bg: #ffffff;
+        }
+        body.night-mode { --white-bg: #121212; --text-color: #ffffff; --card-bg: #1e1e1e; --dark-bg: #000000; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: var(--white-bg); color: var(--text-color); overflow-x: hidden; }
+
+        /* --- NEW: CITY SELECTOR STYLE --- */
+        .city-header {
+            background: var(--dark-bg);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-bottom: 2px solid var(--light-green);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+        }
+        .city-btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 900;
+            border: 3px solid var(--light-green);
+            background: transparent;
+            color: var(--light-green);
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .city-btn.active {
+            background: var(--light-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--light-green);
+        }
+
+        /* पुराने बाकी स्टाइल्स (Branding, Ad, Header, Nav, Cards) यहाँ जारी रखें... */
+        .site-branding { background-color: var(--dark-bg); color: var(--light-green); text-align: center; padding: 20px 0; border-bottom: 4px solid var(--light-green); animation: fastHeartBeat 0.8s infinite; }
+        .branding-title { font-size: clamp(32px, 10vw, 48px); font-weight: 950; margin: 0; }
+        .nav-container { background-color: var(--dark-bg); padding: 15px 0; display: flex; gap: 10px; border-bottom: 4px solid var(--light-green); overflow-x: auto; padding-left: 10px; position: sticky; top: 75px; z-index: 1000; }
+        .tab-btn { font-size: 14px; padding: 10px 18px; font-weight: 900; cursor: pointer; border: none; border-radius: 50px; background-color: var(--light-green); white-space: nowrap; display: none; } /* Default hidden */
+        .tab-btn.active { background-color: #fff; color: #000; }
+        .tab-btn.visible { display: block; } /* Show only selected city tabs */
+        
+        /* [यहाँ आपका पुराना CSS जारी रहेगा...] */
+        .ad-container { background-color: var(--ad-black); border-top: 5px solid var(--light-green); border-bottom: 5px solid var(--light-green); width: 100%; }
+        .ad-static-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 10px; }
+        .ad-static-btn { background-color: var(--light-green); color: #000; padding: 10px 15px; border-radius: 50px; text-decoration: none; font-size: 13px; font-weight: 900; border: none; }
+        .main-header { text-align: center; background-color: var(--light-green); padding: 20px; color: #000; }
+        .container { padding: 15px; max-width: 1100px; margin: auto; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .list-card { background: var(--card-bg); padding: 20px; border-radius: 20px; border: 4px solid var(--light-green); margin-bottom: 15px; }
+        .shared-highlight { border: 8px solid #FFD700 !important; }
+        @keyframes fastHeartBeat { 0%, 28%, 70% { transform: scale(1); } 14%, 42% { transform: scale(1.05); } }
+    </style>
+</head>
+<body class="light-mode">
+
+<div class="site-branding">
+    <div class="branding-title">⚡ CKT DIGITAL</div>
+</div>
+
+<div class="city-header">
+    <button class="city-btn active" onclick="filterCity('kharagpur', this)">Kharagpur</button>
+    <button class="city-btn" onclick="filterCity('medinipur', this)">Medinipur</button>
+</div>
+
+<div class="ad-container">
+    <div class="ad-static-actions">
+        <a href="tel:7908955101" class="ad-static-btn">📞 CALL</a>
+        <button class="ad-static-btn mode-btn" onclick="toggleNightMode()" id="modeBtn">🌙 NIGHT</button>
+        <a href="https://wa.me/917908955101" class="ad-static-btn">💬 WHATSAPP</a>
+        <button onclick="shareMain()" class="ad-static-btn">📤 SHARE SITE</button>
+    </div>
+</div>
+
+<div class="nav-container" id="tabMenu"></div>
+<div class="container" id="contentArea"></div>
+
+<script src="saloonData.js"></script>
+<script src="autoData.js"></script>
+<script src="doctorData.js"></script>
+<script src="electricianData.js"></script>
+<script src="teacherData.js"></script>
+
+<script>
+    // डेटा को सिटी के हिसाब से टैग करना (अगर आपके JSON में नहीं है)
+    // यहाँ हम मान रहे हैं कि डिफ़ॉल्ट डेटा खड़गपुर का है। 
+    // मेदिनीपुर के लिए आप अलग फ़ाइलें बना सकते हैं।
+    const shopData = { 
+        ...saloonData, ...autoData, ...doctorData, ...electricianData, ...teacherData,
+        // उदाहरण के लिए मेदिनीपुर का डेटा यहाँ जोड़ें:
+        "medinipur-saloon": { title: "Saloon", icon: "✂️", city: "medinipur", rates: ["Hair Cut: ₹100"], partners: [{name: "Medinipur Best Hair", address: "Station Road", mobile: "0000000000", whatsapp: "0000000000"}] }
+    };
+
+    function filterCity(cityName, btn) {
+        // बटन का स्टाइल बदलें
+        document.querySelectorAll('.city-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // टैब्स फ़िल्टर करें
+        const tabs = document.querySelectorAll('.tab-btn');
+        let firstVisibleTab = null;
+
+        tabs.forEach(tab => {
+            const tabCity = tab.getAttribute('data-city');
+            if (tabCity === cityName) {
+                tab.classList.add('visible');
+                if (!firstVisibleTab) firstVisibleTab = tab;
+            } else {
+                tab.classList.remove('visible');
+                tab.classList.remove('active');
+            }
+        });
+
+        // सिटी बदलते ही उस सिटी का पहला सेक्शन दिखाएँ
+        if (firstVisibleTab) {
+            firstVisibleTab.click();
+        }
+    }
+
+    function init() {
+        const tabMenu = document.getElementById('tabMenu');
+        const contentArea = document.getElementById('contentArea');
+        const keys = Object.keys(shopData);
+        
+        keys.forEach((key) => {
+            // सिटी टैग चेक करें (डिफ़ॉल्ट खड़गपुर)
+            const city = shopData[key].city || "kharagpur";
+
+            const btn = document.createElement('button');
+            btn.id = `btn-${key}`;
+            btn.className = `tab-btn ${city === 'kharagpur' ? 'visible' : ''}`;
+            btn.setAttribute('data-city', city);
+            btn.innerText = shopData[key].title;
+            btn.onclick = (e) => showSection(key, e.target);
+            tabMenu.appendChild(btn);
+
+            const section = document.createElement('div');
+            section.id = key;
+            section.className = `section`;
+            
+            // [आपका पुराना कार्ड जनरेशन कोड यहाँ रहेगा...]
+            let partnersHtml = '';
+            shopData[key].partners.forEach(p => {
+                const shopId = p.name.replace(/\s+/g, '-').toLowerCase();
+                partnersHtml += `
+                    <div class="list-card" id="card-${shopId}">
+                        <h3>${p.name}</h3>
+                        <p>📍 ${p.address}</p>
+                        <p>📞 ${p.mobile}</p>
+                        <div style="display:flex; gap:5px; flex-wrap:wrap; margin-top:10px;">
+                            <a href="tel:${p.mobile}" class="ad-static-btn" style="font-size:10px;">CALL</a>
+                            <a href="https://wa.me/${p.whatsapp}" class="ad-static-btn" style="font-size:10px; background:#25D366; color:white;">WA</a>
+                            <button onclick="shareShop('${p.name}', '${p.address}', '${key}', '${shopId}')" class="ad-static-btn" style="font-size:10px; background:#03a9f4; color:white;">SHARE</button>
+                        </div>
+                    </div>`;
+            });
+
+            section.innerHTML = `
+                <div style="background:var(--light-green); padding:10px; border-radius:10px; margin-bottom:10px; color:#000;">
+                    <h2 style="margin:0;">${shopData[key].icon} ${shopData[key].title}</h2>
+                </div>
+                <div class="grid-container">${partnersHtml}</div>
+            `;
+            contentArea.appendChild(section);
+        });
+
+        // पहली बार लोड होने पर खड़गपुर का पहला टैब एक्टिव करें
+        const firstTab = document.querySelector('.tab-btn.visible');
+        if (firstTab) firstTab.click();
+    }
+
+    function showSection(id, btn) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function toggleNightMode() {
+        document.body.classList.toggle('night-mode');
+        const btn = document.getElementById('modeBtn');
+        btn.innerHTML = document.body.classList.contains('night-mode') ? "☀️ LIGHT" : "🌙 NIGHT";
+    }
+
+    function shareMain() {
+        window.open(`https://wa.me/?text=${encodeURIComponent("CKT Digital - Local Services: " + window.location.href)}`, '_blank');
+    }
+
+    window.onload = init;
+</script>
+</body>
+</html>
