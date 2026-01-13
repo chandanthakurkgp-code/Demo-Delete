@@ -2,7 +2,7 @@
     "electrician": {
         "title": "Electrician",
         "icon": "⚡",
-        "rates": ["Service Charge: ₹150", "Fan Repair: ₹250", "Wiring: ₹500+", " Home visit per person (Monday, Tuesday, Thursday, Saturday) extra charge is ₹100, प्रति व्यक्ति होम विज़िट (सोमवार, मंगलवार, गुरुवार, शनिवार) का एक्स्ट्रा चार्ज ₹100 है, প্রতি ব্যক্তির বাড়িতে যাওয়ার জন্য (সোমবার, মঙ্গলবার, বৃহস্পতিবার, শনিবার) অতিরিক্ত চার্জ ₹100"], // रेट यहाँ बदलें
+        "rates": ["Service Charge: ₹150", "Fan Repair: ₹250", "Wiringgg: ₹500+", " Home visit per person (Monday, Tuesday, Thursday, Saturday) extra charge is ₹100, प्रति व्यक्ति होम विज़िट (सोमवार, मंगलवार, गुरुवार, शनिवार) का एक्स्ट्रा चार्ज ₹100 है, প্রতি ব্যক্তির বাড়িতে যাওয়ার জন্য (সোমবার, মঙ্গলবার, বৃহস্পতিবার, শনিবার) অতিরিক্ত চার্জ ₹100"], // रेट यहाँ बदलें
         "partners": [
             { 
                 "name": "राजेश इलेक्ट्रिशियन", 
@@ -34,3 +34,4 @@
         ]
     }
 };
+
