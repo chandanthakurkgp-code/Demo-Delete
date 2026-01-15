@@ -13,7 +13,7 @@ const electricianData = {
                 "cardLink": "https://your-visiting-card-link-here", // विजिटिंग कार्ड का लिंक यहाँ डालें
                 "mapLink": "#" 
             },
-            { "name": "आर्यन2", "address": "गोल बाज़ार", "mobile": "9800012351", "whatsapp": "919800012351", "viewLink": "#", "mapLink": "https://maps.app.goo.gl/xyz1" },
+            { "name": "आर्यन2 (House Wiring)", "address": "Malancha Road, Hanuman Mandir, Ward No. 15, Fatak Bazar, Jaiswal SWeets, Kharida  Bazar Sabzi Market", "mobile": "9800012351", "whatsapp": "919800012351", "viewLink": "#", "mapLink": "https://maps.app.goo.gl/xyz1" },
             { 
                 "name": "Amit", 
                 "address": "Malancha Road", 
@@ -35,3 +35,4 @@ const electricianData = {
         ]
     }
 };
+
