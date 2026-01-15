@@ -1,4 +1,3 @@
-﻿
 const electricianData = {
     "electrician": {
         "title": "Electrician",
@@ -14,6 +13,7 @@ const electricianData = {
                 "cardLink": "https://your-visiting-card-link-here", // विजिटिंग कार्ड का लिंक यहाँ डालें
                 "mapLink": "#" 
             },
+            { "name": "आर्यन2", "address": "गोल बाज़ार", "mobile": "9800012351", "whatsapp": "919800012351", "viewLink": "#", "mapLink": "https://maps.app.goo.gl/xyz1" },
             { 
                 "name": "Amit", 
                 "address": "Malancha Road", 
