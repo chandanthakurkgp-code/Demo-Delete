@@ -122,12 +122,12 @@
 <body>
 
 <div class="site-branding">
-    <div class="branding-title">💻 CKT DIGITAL</div>
+    <div class="branding-title">💻 CKT DIGITAL INDIA</div>
     <span class="branding-subtitle">SERVICE</span>
 </div>
 
 <div class="ad-container">
-    <div class="ad-banner"><div class="ad-text">✨ विज्ञापन: खड़गपुर की नंबर 1 शॉप - बेस्ट सर्विस और बेस्ट रेट | संपर्क करें: +91 7908955101 ✨</div></div>
+    <div class="ad-banner"><div class="ad-text">✨ Welcome to CKT DIGITAL INDIA SERVICE…………… Call this number to connect with us: +91 7908955101 ✨</div></div>
     <div class="ad-static-actions">
         <a href="tel:7908955101" class="ad-static-btn">📞 CALL</a>
         <button class="ad-static-btn mode-btn" onclick="toggleNightMode()" id="modeBtn">🌙 NIGHT</button>
@@ -139,11 +139,11 @@
 
 <div class="main-header">
     <h1 class="main-title">KHARAGPUR</h1>
-    <div class="main-subtitle">SHOPS & SERVICES</div>
+    <div class="main-subtitle">ALL SHOPS & SERVICES</div>
 </div>
 
 <div class="visitor-counter">
-    <p style="margin:0">TOTAL FOOTFALL:</p>
+    <p style="margin:0">TOTAL VISITOR:</p>
     <div class="counter-box">
         <a href="https://www.freecounterstat.com" title="website counter"><img src="https://counter9.stat.ovh/private/freecounterstat.php?c=89mj8m1w5w727m616lyq2v269v2k253m" border="0" title="website counter" alt="website counter"></a>
     </div>
@@ -230,7 +230,7 @@
                     <h2>${shopData[key].icon} ${shopData[key].title}</h2>
                     <ul class="rate-list">${shopData[key].rates.map(r => `<li>${r}</li>`).join('')}</ul>
                 </div>
-                <input type="text" class="search-bar" placeholder="${shopData[key].title} में खोजें..." onkeyup="filterList('${key}List', this.value)">
+                <input type="text" class="search-bar" placeholder="${shopData[key].title} Search in..." onkeyup="filterList('${key}List', this.value)">
                 <div id="${key}List" class="grid-container">${partnersHtml}</div>
             `;
             contentArea.appendChild(section);
