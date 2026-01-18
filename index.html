@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CKT DIGITAL - Kharagpur Services</title>
+    <title>DIGITAL - Kharagpur Services</title>
     <style>
         * { box-sizing: border-box; transition: background 0.3s, color 0.3s; }
         
@@ -122,12 +122,12 @@
 <body>
 
 <div class="site-branding">
-    <div class="branding-title">💻 CKT DIGITAL INDIA</div>
+    <div class="branding-title">💻 DIGITAL</div>
     <span class="branding-subtitle">SERVICE</span>
 </div>
 
 <div class="ad-container">
-    <div class="ad-banner"><div class="ad-text">✨ Welcome to CKT DIGITAL INDIA SERVICE…………… Call this number to connect with us: +91 7908955101 ✨</div></div>
+    <div class="ad-banner"><div class="ad-text">✨ Welcome to DIGITAL INDIA SERVICE…… ✨</div></div>
     <div class="ad-static-actions">
         <a href="tel:7908955101" class="ad-static-btn">📞 CALL</a>
         <button class="ad-static-btn mode-btn" onclick="toggleNightMode()" id="modeBtn">🌙 NIGHT</button>
@@ -139,7 +139,7 @@
 
 <div class="main-header">
     <h1 class="main-title">KHARAGPUR</h1>
-    <div class="main-subtitle">ALL SHOPS & SERVICES</div>
+    <div class="main-subtitle">SHOPS & SERVICES</div>
 </div>
 
 <div class="visitor-counter">
@@ -151,7 +151,7 @@
 
 <div class="new-marquee-ad">
     <div class="marquee-content">
-        ✈️ धमाका! खड़गपुर की टॉप सर्विसेज के लिए CKT DIGITAL पर आज ही अपनी शॉप लिस्ट करें! ✈️
+        ✈️Welcome to DIGITAL INDIA SERVICE…✈️
     </div>
 </div>
 
@@ -159,13 +159,9 @@
 <div class="container" id="contentArea"></div>
 
 <script src="saloonData.js"></script>
-<script src="autoData.js"></script>
-<script src="doctorData.js"></script>
-<script src="electricianData.js?v=1.1"></script>
-<script src="teacherData.js"></script>
 
 <script>
-    const shopData = { ...saloonData, ...autoData, ...doctorData, ...electricianData, ...teacherData };
+    const shopData = { ...saloonData };
 
     function toggleNightMode() {
         document.body.classList.toggle('night-mode');
@@ -230,7 +226,7 @@
                     <h2>${shopData[key].icon} ${shopData[key].title}</h2>
                     <ul class="rate-list">${shopData[key].rates.map(r => `<li>${r}</li>`).join('')}</ul>
                 </div>
-                <input type="text" class="search-bar" placeholder="${shopData[key].title} Search in..." onkeyup="filterList('${key}List', this.value)">
+                <input type="text" class="search-bar" placeholder="${shopData[key].title} Search..." onkeyup="filterList('${key}List', this.value)">
                 <div id="${key}List" class="grid-container">${partnersHtml}</div>
             `;
             contentArea.appendChild(section);
@@ -291,4 +287,3 @@
 </script>
 </body>
 </html>
-
